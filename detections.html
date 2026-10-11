@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Détections Football - Footsider</title>
+  <link rel="shortcut icon" href="./assets/img/favicon.2cc4d4cf.ico">
+  <link rel="stylesheet" href="./style.css">
+  <style>
+    body {
+      background: #090e15;
+      color: #fff;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .main-nav-bar {
+      background: #111823;
+      border-bottom: 1px solid #1f2c3d;
+      padding: 14px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .main-nav-bar img {
+      height: 28px;
+    }
+    .nav-links {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+    .nav-links a {
+      color: #8b99a8;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover, .nav-links a.active {
+      color: #02a85e;
+    }
+    .container-content {
+      max-width: 1080px;
+      margin: 30px auto;
+      padding: 0 20px;
+      flex: 1;
+      width: 100%;
+    }
+    .page-header {
+      margin-bottom: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .page-title h1 {
+      font-size: 28px;
+      font-weight: 900;
+    }
+    .page-title p {
+      color: #8b99a8;
+      font-size: 14px;
+      margin-top: 4px;
+    }
+    .filter-bar {
+      display: flex;
+      gap: 10px;
+      background: #111823;
+      border: 1px solid #1f2c3d;
+      padding: 6px;
+      border-radius: 10px;
+      overflow-x: auto;
+    }
+    .filter-btn {
+      background: none;
+      border: none;
+      color: #8b99a8;
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .filter-btn.active {
+      background: #02a85e;
+      color: #fff;
+    }
+    .detections-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 20px;
+      margin-top: 24px;
+    }
+    .detection-card {
+      background: #111823;
+      border: 1px solid #1f2c3d;
+      border-radius: 14px;
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      transition: transform 0.2s, border-color 0.2s;
+    }
+    .detection-card:hover {
+      transform: translateY(-3px);
+      border-color: #02a85e;
+    }
+    .club-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 16px;
+    }
+    .club-img {
+      width: 48px;
+      height: 48px;
+      background: #fff;
+      border-radius: 8px;
+      padding: 4px;
+      object-fit: contain;
+    }
+    .club-meta h3 {
+      font-size: 16px;
+      font-weight: 800;
+    }
+    .club-meta span {
+      font-size: 12px;
+      color: #8b99a8;
+    }
+    .badge-tag {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      background: rgba(2, 168, 94, 0.15);
+      border: 1px solid #02a85e;
+      color: #02a85e;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 6px;
+    }
+    .specs-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      background: #0a0f16;
+      padding: 12px;
+      border-radius: 8px;
+      margin-bottom: 16px;
+    }
+    .spec-box {
+      font-size: 11px;
+      color: #8b99a8;
+    }
+    .spec-box strong {
+      display: block;
+      color: #fff;
+      font-size: 13px;
+      margin-top: 2px;
+    }
+    .btn-candidater {
+      margin-top: auto;
+      width: 100%;
+      background: #02a85e;
+      color: #fff;
+      border: none;
+      padding: 11px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 13px;
+      cursor: pointer;
+      transition: filter 0.2s;
+    }
+    .btn-candidater:hover {
+      filter: brightness(1.1);
+    }
+    .btn-candidater.applied {
+      background: #202d3f;
+      color: #8b99a8;
+      cursor: default;
+    }
+  </style>
+</head>
+<body>
+  <nav class="main-nav-bar">
+    <a href="/"><img src="./assets/img/logo-footsider.svg" alt="Footsider"></a>
+    <div class="nav-links">
+      <a href="/joueurs">Joueurs</a>
+      <a href="/recruteurs">Recruteurs</a>
+      <a href="/detections" class="active">Détections</a>
+      <a href="/connexion" style="background: #02a85e; color: #fff; padding: 6px 14px; border-radius: 20px;">Connexion</a>
+    </div>
+  </nav>
+
+  <div class="container-content">
+    <div class="page-header">
+      <div class="page-title">
+        <h1>Détections & Opportunités</h1>
+        <p>Toutes les sessions de détections officielles vérifiées par Footsider</p>
+      </div>
+      <div class="filter-bar">
+        <button class="filter-btn active" onclick="filterCards('all', this)">Toutes</button>
+        <button class="filter-btn" onclick="filterCards('pro', this)">Clubs Pros</button>
+        <button class="filter-btn" onclick="filterCards('u19', this)">U17 / U19</button>
+        <button class="filter-btn" onclick="filterCards('seniors', this)">Séniors (N2/N3)</button>
+      </div>
+    </div>
+
+    <div class="detections-grid" id="grid">
+      <!-- Card 1 -->
+      <div class="detection-card" data-category="pro u19">
+        <span class="badge-tag">OFFICIEL</span>
+        <div class="club-header">
+          <img src="./assets/img/Logo_Stade_lavallois_MFC_2022.svg-56x70.png" class="club-img" alt="Laval">
+          <div class="club-meta">
+            <h3>Stade Lavallois MFC</h3>
+            <span>Ligue 2 BKT • Centre de formation</span>
+          </div>
+        </div>
+        <div class="specs-grid">
+          <div class="spec-box">Catégorie<strong>U19 Nationaux</strong></div>
+          <div class="spec-box">Poste ciblé<strong>Attaquant / Ailier</strong></div>
+          <div class="spec-box">Date<strong>25 Octobre</strong></div>
+          <div class="spec-box">Lieu<strong>Laval (53)</strong></div>
+        </div>
+        <button class="btn-candidater" onclick="apply(this, 'Stade Lavallois')">Postuler à la détection</button>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="detection-card" data-category="seniors">
+        <span class="badge-tag">URGENT</span>
+        <div class="club-header">
+          <img src="./assets/img/Logo_Football_Club_93_-_2020.svg-2-70x70.png" class="club-img" alt="FC93">
+          <div class="club-meta">
+            <h3>Football Club 93</h3>
+            <span>National 2 • Équipe première</span>
+          </div>
+        </div>
+        <div class="specs-grid">
+          <div class="spec-box">Catégorie<strong>Séniors N2</strong></div>
+          <div class="spec-box">Poste ciblé<strong>Défenseur Central</strong></div>
+          <div class="spec-box">Date<strong>02 Novembre</strong></div>
+          <div class="spec-box">Lieu<strong>Bobigny (93)</strong></div>
+        </div>
+        <button class="btn-candidater" onclick="apply(this, 'Football Club 93')">Postuler à la détection</button>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="detection-card" data-category="seniors">
+        <span class="badge-tag">CONFIRMÉ</span>
+        <div class="club-header">
+          <img src="./assets/img/Logo_Lyon_La_Duchere_-_2021.svg-2-68x70.png" class="club-img" alt="Lyon">
+          <div class="club-meta">
+            <h3>Lyon La Duchère</h3>
+            <span>National 3 • Groupe Auvergne-Rhône-Alpes</span>
+          </div>
+        </div>
+        <div class="specs-grid">
+          <div class="spec-box">Catégorie<strong>Séniors N3 / R1</strong></div>
+          <div class="spec-box">Poste ciblé<strong>Milieu Défensif (6)</strong></div>
+          <div class="spec-box">Date<strong>08 Novembre</strong></div>
+          <div class="spec-box">Lieu<strong>Lyon (69)</strong></div>
+        </div>
+        <button class="btn-candidater" onclick="apply(this, 'Lyon La Duchère')">Postuler à la détection</button>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="detection-card" data-category="u19">
+        <span class="badge-tag">SESSION TEST</span>
+        <div class="club-header">
+          <img src="./assets/img/Logo_SA_Merignac_Football_-_2017.svg-6-54x70.png" class="club-img" alt="SAM">
+          <div class="club-meta">
+            <h3>SA Mérignac</h3>
+            <span>Régional 1 • Pôle Espoirs</span>
+          </div>
+        </div>
+        <div class="specs-grid">
+          <div class="spec-box">Catégorie<strong>U17 R1</strong></div>
+          <div class="spec-box">Poste ciblé<strong>Gardien de but</strong></div>
+          <div class="spec-box">Date<strong>15 Novembre</strong></div>
+          <div class="spec-box">Lieu<strong>Mérignac (33)</strong></div>
+        </div>
+        <button class="btn-candidater" onclick="apply(this, 'SA Mérignac')">Postuler à la détection</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function filterCards(cat, btn) {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const cards = document.querySelectorAll('.detection-card');
+      cards.forEach(c => {
+        if (cat === 'all' || c.getAttribute('data-category').includes(cat)) {
+          c.style.display = 'flex';
+        } else {
+          c.style.display = 'none';
+        }
+      });
+    }
+
+    function apply(btn, club) {
+      const user = localStorage.getItem('footsider_user');
+      if (!user) {
+        if (confirm('Veuillez vous connecter pour postuler à ' + club + '. Aller à la page de connexion ?')) {
+          window.location.href = '/joueurs';
+        }
+        return;
+      }
+      btn.innerText = '✓ Candidature envoyée';
+      btn.classList.add('applied');
+      btn.disabled = true;
+      alert('Votre candidature pour ' + club + ' a été transmise au recruteur avec succès !');
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Espace Joueur - Connexion Footsider</title>
+  <link rel="shortcut icon" href="./assets/img/favicon.2cc4d4cf.ico">
+  <link rel="stylesheet" href="./style.css">
+  <style>
+    body {
+      background: #090e15 radial-gradient(circle at 50% 20%, #152232 0%, #090e15 80%);
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+    .auth-container {
+      max-width: 460px;
+      margin: auto;
+      padding: 30px 24px;
+      width: 100%;
+    }
+    .auth-card {
+      background: #111823;
+      border: 1px solid #1f2c3d;
+      border-radius: 16px;
+      padding: 32px 28px;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+    }
+    .auth-header {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+    .auth-header img {
+      height: 32px;
+      margin-bottom: 16px;
+    }
+    .role-badge {
+      display: inline-block;
+      background: rgba(2, 168, 94, 0.15);
+      border: 1px solid #02a85e;
+      color: #02a85e;
+      font-weight: 700;
+      font-size: 11px;
+      padding: 3px 10px;
+      border-radius: 20px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+    }
+    .auth-header h1 {
+      font-size: 22px;
+      font-weight: 800;
+      color: #fff;
+    }
+    .auth-header p {
+      font-size: 13px;
+      color: #8b99a8;
+      margin-top: 4px;
+    }
+    .tabs-switch {
+      display: flex;
+      background: #0c121b;
+      border: 1px solid #1a2533;
+      border-radius: 10px;
+      padding: 4px;
+      margin-bottom: 22px;
+    }
+    .tab-btn {
+      flex: 1;
+      padding: 9px;
+      background: none;
+      border: none;
+      color: #8b99a8;
+      font-size: 13px;
+      font-weight: 600;
+      border-radius: 7px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .tab-btn.active {
+      background: #02a85e;
+      color: #fff;
+    }
+    .form-group {
+      margin-bottom: 16px;
+    }
+    .form-group label {
+      display: block;
+      font-size: 12px;
+      font-weight: 700;
+      color: #cbd5e1;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .form-control {
+      width: 100%;
+      background: #0a0f16;
+      border: 1px solid #202d3f;
+      border-radius: 8px;
+      padding: 12px 14px;
+      color: #fff;
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    .form-control:focus {
+      border-color: #02a85e;
+      box-shadow: 0 0 0 2px rgba(2, 168, 94, 0.25);
+    }
+    .btn-submit {
+      width: 100%;
+      background: #02a85e;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 13px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 8px;
+      transition: filter 0.2s;
+    }
+    .btn-submit:hover {
+      filter: brightness(1.1);
+    }
+    .auth-footer {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 13px;
+      color: #8b99a8;
+    }
+    .auth-footer a {
+      color: #02a85e;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .back-home {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: #8b99a8;
+      text-decoration: none;
+      font-size: 13px;
+      margin-bottom: 16px;
+    }
+    .back-home:hover {
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+  <div class="auth-container">
+    <a href="/" class="back-home">← Retour à l'accueil</a>
+    <div class="auth-card">
+      <div class="auth-header">
+        <a href="/"><img src="./assets/img/logo-footsider.svg" alt="Footsider"></a>
+        <div><span class="role-badge">⚽ Espace Joueur</span></div>
+        <h1>Connexion Joueur</h1>
+        <p>Accédez à votre profil, vos statistiques et vos détections</p>
+      </div>
+
+      <div class="tabs-switch">
+        <button class="tab-btn active" id="btn-tab-email" onclick="setTab('email')">Lien par Email</button>
+        <button class="tab-btn" id="btn-tab-pass" onclick="setTab('password')">Email + Mot de passe</button>
+      </div>
+
+      <!-- Mode 1: Par compte email direct -->
+      <form id="form-email" onsubmit="handleLogin(event, 'email')">
+        <div class="form-group">
+          <label>Adresse Email</label>
+          <input type="email" class="form-control" placeholder="nom@exemple.fr" required id="joueur-email-only">
+        </div>
+        <p style="font-size: 12px; color: #8b99a8; margin-bottom: 14px;">
+          Un lien de connexion instantané sécurisé vous sera envoyé par email. Aucun mot de passe requis.
+        </p>
+        <button type="submit" class="btn-submit">Recevoir mon lien de connexion</button>
+      </form>
+
+      <!-- Mode 2: Email + Mot de passe -->
+      <form id="form-password" style="display: none;" onsubmit="handleLogin(event, 'password')">
+        <div class="form-group">
+          <label>Adresse Email</label>
+          <input type="email" class="form-control" placeholder="nom@exemple.fr" required id="joueur-email">
+        </div>
+        <div class="form-group">
+          <label>Mot de passe</label>
+          <input type="password" class="form-control" placeholder="••••••••" required id="joueur-pass">
+        </div>
+        <div style="display: flex; justify-content: space-between; font-size: 12px; margin-bottom: 14px;">
+          <label style="display: flex; align-items: center; gap: 6px; cursor: pointer;">
+            <input type="checkbox" checked> Se souvenir de moi
+          </label>
+          <a href="#" style="color: #02a85e; text-decoration: none;">Mot de passe oublié ?</a>
+        </div>
+        <button type="submit" class="btn-submit">Se connecter</button>
+      </form>
+
+      <div class="auth-footer">
+        Vous êtes un club ou un agent ? <a href="/recruteurs">Connexion Recruteur</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function setTab(tab) {
+      const btnEmail = document.getElementById('btn-tab-email');
+      const btnPass = document.getElementById('btn-tab-pass');
+      const formEmail = document.getElementById('form-email');
+      const formPass = document.getElementById('form-password');
+
+      if (tab === 'email') {
+        btnEmail.classList.add('active');
+        btnPass.classList.remove('active');
+        formEmail.style.display = 'block';
+        formPass.style.display = 'none';
+      } else {
+        btnPass.classList.add('active');
+        btnEmail.classList.remove('active');
+        formPass.style.display = 'block';
+        formEmail.style.display = 'none';
+      }
+    }
+
+    function handleLogin(e, mode) {
+      e.preventDefault();
+      const email = mode === 'email' ? document.getElementById('joueur-email-only').value : document.getElementById('joueur-email').value;
+      localStorage.setItem('footsider_user', JSON.stringify({ role: 'joueur', email: email }));
+      alert('Connexion réussie en tant que Joueur (' + email + ') ! Redirection...');
+      window.location.href = '/app';
+    }
+  </script>
+</body>
+</html>

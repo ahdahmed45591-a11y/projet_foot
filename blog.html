@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Blog & Actualités - Footsider</title>
+  <link rel="shortcut icon" href="./assets/img/favicon.2cc4d4cf.ico">
+  <link rel="stylesheet" href="./style.css">
+  <style>
+    body {
+      background: #090e15;
+      color: #fff;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .main-nav-bar {
+      background: #111823;
+      border-bottom: 1px solid #1f2c3d;
+      padding: 14px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .main-nav-bar img {
+      height: 28px;
+    }
+    .nav-links {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+    .nav-links a {
+      color: #8b99a8;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover, .nav-links a.active {
+      color: #02a85e;
+    }
+    .container-content {
+      max-width: 1080px;
+      margin: 36px auto;
+      padding: 0 20px;
+      flex: 1;
+      width: 100%;
+    }
+    .blog-header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    .blog-header h1 {
+      font-size: 32px;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+    }
+    .blog-header p {
+      color: #8b99a8;
+      font-size: 15px;
+      margin-top: 8px;
+    }
+    .articles-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 24px;
+    }
+    .article-card {
+      background: #111823;
+      border: 1px solid #1f2c3d;
+      border-radius: 14px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.2s, border-color 0.2s;
+      text-decoration: none;
+      color: inherit;
+    }
+    .article-card:hover {
+      transform: translateY(-4px);
+      border-color: #02a85e;
+    }
+    .article-cover {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      background: #16202c;
+    }
+    .article-body {
+      padding: 20px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .article-category {
+      font-size: 11px;
+      font-weight: 700;
+      color: #02a85e;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+    }
+    .article-title {
+      font-size: 17px;
+      font-weight: 800;
+      line-height: 1.35;
+      margin-bottom: 10px;
+      color: #fff;
+    }
+    .article-desc {
+      font-size: 13px;
+      color: #8b99a8;
+      line-height: 1.5;
+      margin-bottom: 16px;
+      flex: 1;
+    }
+    .article-meta {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      color: #64748b;
+      border-top: 1px solid #1a2533;
+      padding-top: 12px;
+    }
+    .btn-download {
+      background: #02a85e;
+      color: #fff;
+      padding: 7px 16px;
+      border-radius: 20px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 13px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+  </style>
+</head>
+<body>
+  <nav class="main-nav-bar">
+    <a href="/"><img src="./assets/img/logo-footsider.svg" alt="Footsider"></a>
+    <div class="nav-links">
+      <a href="/joueurs">JOUEURS</a>
+      <a href="/recruteurs">RECRUTEURS</a>
+      <a href="/detections">DÉTECTIONS</a>
+      <a href="/blog" class="active">BLOG & ACTUALITÉS</a>
+      <a href="/#telecharger" class="btn-download">Télécharger l'app</a>
+    </div>
+  </nav>
+
+  <div class="container-content">
+    <header class="blog-header">
+      <h1>Blog & Actualités Football</h1>
+      <p>Conseils pour réussir ses détections, actualités du recrutement et retours d'expérience pro</p>
+    </header>
+
+    <div class="articles-grid">
+      <!-- Article 1 -->
+      <article class="article-card">
+        <img src="./assets/img/Joueur-Footsider-Detection.jpg" class="article-cover" alt="Détection football">
+        <div class="article-body">
+          <div class="article-category">Conseils Détection</div>
+          <h2 class="article-title">Comment préparer sa session de détection physique et mentale ?</h2>
+          <p class="article-desc">Tous les secrets des recruteurs professionnels pour attirer l'œil des scouts lors de vos 90 minutes sur le terrain.</p>
+          <div class="article-meta">
+            <span>Par la rédaction</span>
+            <span>Il y a 3 jours</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Article 2 -->
+      <article class="article-card">
+        <img src="./assets/img/Anelka.webp" class="article-cover" alt="Nicolas Anelka">
+        <div class="article-body">
+          <div class="article-category">Interview Exclusive</div>
+          <h2 class="article-title">Nicolas Anelka : « Le talent pur a besoin d'exposition directe »</h2>
+          <p class="article-desc">Retour sur la vision du co-fondateur de Footsider et comment la technologie change le destin des jeunes joueurs amateurs.</p>
+          <div class="article-meta">
+            <span>Interview</span>
+            <span>Il y a 1 semaine</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Article 3 -->
+      <article class="article-card">
+        <img src="./assets/img/Joueur_statistiques_footsider_v4.png" class="article-cover" alt="Statistiques et CV">
+        <div class="article-body">
+          <div class="article-category">Tutoriel Profil</div>
+          <h2 class="article-title">Créer son CV vidéo et sa carte joueur : le guide complet</h2>
+          <p class="article-desc">Quels clips de match sélectionner ? Comment remplir ses données athlétiques pour certifier son profil auprès des clubs.</p>
+          <div class="article-meta">
+            <span>Guide</span>
+            <span>Il y a 2 semaines</span>
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</body>
+</html>

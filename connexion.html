@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Connexion - Footsider</title>
+  <link rel="shortcut icon" href="./assets/img/favicon.2cc4d4cf.ico">
+  <link rel="stylesheet" href="./style.css">
+  <style>
+    body {
+      background: #090e15 radial-gradient(circle at 50% 20%, #152232 0%, #090e15 80%);
+      color: #fff;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+    .auth-container {
+      max-width: 540px;
+      margin: auto;
+      padding: 30px 20px;
+      width: 100%;
+    }
+    .auth-card {
+      background: #111823;
+      border: 1px solid #1f2c3d;
+      border-radius: 16px;
+      padding: 36px 30px;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+      text-align: center;
+    }
+    .auth-card img.logo {
+      height: 32px;
+      margin-bottom: 20px;
+    }
+    .auth-card h1 {
+      font-size: 24px;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+    .auth-card p.subtitle {
+      color: #8b99a8;
+      font-size: 14px;
+      margin-bottom: 30px;
+    }
+    .roles-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .role-card {
+      background: #0c121b;
+      border: 2px solid #1a2533;
+      border-radius: 12px;
+      padding: 24px 16px;
+      text-decoration: none;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      transition: all 0.2s;
+    }
+    .role-card:hover {
+      border-color: #02a85e;
+      transform: translateY(-3px);
+      box-shadow: 0 8px 24px rgba(2, 168, 94, 0.2);
+    }
+    .role-card.recruteur:hover {
+      border-color: #f5b041;
+      box-shadow: 0 8px 24px rgba(245, 176, 65, 0.2);
+    }
+    .role-icon {
+      font-size: 34px;
+    }
+    .role-title {
+      font-size: 16px;
+      font-weight: 800;
+    }
+    .role-desc {
+      font-size: 11px;
+      color: #8b99a8;
+      line-height: 1.4;
+    }
+    .back-home {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: #8b99a8;
+      text-decoration: none;
+      font-size: 13px;
+      margin-bottom: 16px;
+    }
+  </style>
+</head>
+<body>
+  <div class="auth-container">
+    <a href="/" class="back-home">← Retour à l'accueil</a>
+    <div class="auth-card">
+      <a href="/"><img src="./assets/img/logo-footsider.svg" class="logo" alt="Footsider"></a>
+      <h1>Bienvenue sur Footsider</h1>
+      <p class="subtitle">Choisissez votre profil pour vous connecter</p>
+
+      <div class="roles-grid">
+        <a href="/joueurs" class="role-card">
+          <div class="role-icon">⚽</div>
+          <div class="role-title">JOUEUR</div>
+          <div class="role-desc">Créer mon CV, poster mes highlights et postuler aux détections</div>
+        </a>
+
+        <a href="/recruteurs" class="role-card recruteur">
+          <div class="role-icon">💼</div>
+          <div class="role-title" style="color: #f5b041;">RECRUTEUR</div>
+          <div class="role-desc">Clubs, recruteurs & agents à la recherche de nouveaux talents</div>
+        </a>
+      </div>
+
+      <div style="font-size: 13px; color: #8b99a8;">
+        Besoin d'aide ? <a href="/" style="color: #02a85e; text-decoration: none;">Consulter la FAQ</a>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
