@@ -181,8 +181,12 @@
         <button class="nav-btn active" onclick="showTab('joueurs')">1. Joueurs (Catalogue)</button>
         <button class="nav-btn" onclick="showTab('messages')">2. Messages</button>
         <button class="nav-btn" onclick="showTab('enregistres')">3. Enregistrés (Favoris)</button>
+        <button class="nav-btn" onclick="showTab('inscription')">4. Mon Compte Recruteur</button>
       </div>
-      <a href="/joueurs" style="color: #02a85e; text-decoration: none; font-size: 13px; font-weight: 700;">← Espace Joueur</a>
+      <div style="display: flex; gap: 12px; align-items: center;">
+        <a href="/joueurs" style="color: #02a85e; text-decoration: none; font-size: 13px; font-weight: 700;">← Espace Joueur</a>
+        <a href="/connexion" id="auth-link-scout" style="background: #1e293b; color: #fff; padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 700; text-decoration: none;">Connexion</a>
+      </div>
     </div>
   </header>
 
@@ -233,11 +237,51 @@
       </div>
     </section>
 
+    <!-- ONGLET 4 : MON COMPTE / INSCRIPTION RECRUTEUR -->
+    <section id="tab-inscription" class="panel">
+      <div class="card" style="max-width: 600px; margin: 0 auto;">
+        <h2 style="margin-top: 0; color: #f5b041;">Compte Recruteur / Club</h2>
+        <p style="color: #94a3b8; font-size: 13px; margin-bottom: 20px;">Créez votre profil recruteur pour superviser et enregistrer des joueurs.</p>
+
+        <form id="form-recruteur" onsubmit="saveScout(event)">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px;">
+            <div>
+              <label style="display:block; font-size:12px; margin-bottom:4px; color:#cbd5e1; font-weight:700;">Nom</label>
+              <input type="text" id="s-nom" required placeholder="Ex: Koné" style="width:100%;">
+            </div>
+            <div>
+              <label style="display:block; font-size:12px; margin-bottom:4px; color:#cbd5e1; font-weight:700;">Prénom</label>
+              <input type="text" id="s-prenom" required placeholder="Ex: Bakari" style="width:100%;">
+            </div>
+          </div>
+          <div style="margin-bottom: 14px;">
+            <label style="display:block; font-size:12px; margin-bottom:4px; color:#cbd5e1; font-weight:700;">Adresse E-mail</label>
+            <input type="email" id="s-mail" required placeholder="Ex: b.kone@asec.ci" style="width:100%;">
+          </div>
+          <div style="margin-bottom: 14px;">
+            <label style="display:block; font-size:12px; margin-bottom:4px; color:#cbd5e1; font-weight:700;">Mot de passe</label>
+            <input type="password" id="s-motdepasse" required placeholder="Minimum 6 caractères" style="width:100%;">
+          </div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 20px;">
+            <div>
+              <label style="display:block; font-size:12px; margin-bottom:4px; color:#cbd5e1; font-weight:700;">Téléphone</label>
+              <input type="tel" id="s-numero" required placeholder="Ex: +225 07 12 34 56" style="width:100%;">
+            </div>
+            <div>
+              <label style="display:block; font-size:12px; margin-bottom:4px; color:#cbd5e1; font-weight:700;">Club / Organisation</label>
+              <input type="text" id="s-club" required placeholder="Ex: ASEC Mimosas" style="width:100%;">
+            </div>
+          </div>
+          <button type="submit" class="btn-action" style="background: #f5b041; color: #080c10; font-weight: 800; padding: 12px; width: 100%; border-radius: 8px; font-size: 15px;">Enregistrer mon profil Recruteur</button>
+        </form>
+      </div>
+    </section>
+
   </main>
 
   <script>
     let dbData = { players: [], scouts: [] };
-    const currentScoutId = 's_1'; // Connecté en tant que Bakari Koné (ASEC Mimosas)
+    let currentScoutId = 's_1'; // Connecté par défaut ou via session
 
     function showTab(tab) {
       document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
@@ -374,6 +418,58 @@
       alert('Ouverture de la messagerie avec ' + nom + '. Vous pouvez lui envoyer une convocation directe.');
     }
 
+    async function saveScout(e) {
+      e.preventDefault();
+      const scout = {
+        nom: document.getElementById('s-nom').value,
+        prenom: document.getElementById('s-prenom').value,
+        mail: document.getElementById('s-mail').value,
+        motdepasse: document.getElementById('s-motdepasse').value,
+        numero: document.getElementById('s-numero').value,
+        club: document.getElementById('s-club').value
+      };
+
+      const res = await fetch('/api/recruteur/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(scout)
+      });
+      const data = await res.json();
+      if (data.success) {
+        localStorage.setItem('futurpro_user', JSON.stringify({ role: 'recruteur', user: data.scout }));
+        alert('Compte Recruteur enregistré avec succès sur FuturPro !');
+        location.reload();
+      }
+    }
+
+    function checkAuthScout() {
+      const stored = localStorage.getItem('futurpro_user');
+      if (stored) {
+        try {
+          const { user } = JSON.parse(stored);
+          if (user && user.id) {
+            window.currentScoutId = user.id;
+            const authBtn = document.getElementById('auth-link-scout');
+            if (authBtn) {
+              authBtn.innerText = 'Déconnexion (' + (user.prenom || user.nom) + ')';
+              authBtn.href = '#';
+              authBtn.onclick = (e) => {
+                e.preventDefault();
+                localStorage.removeItem('futurpro_user');
+                window.location.href = '/connexion';
+              };
+            }
+            if (document.getElementById('s-nom')) document.getElementById('s-nom').value = user.nom || '';
+            if (document.getElementById('s-prenom')) document.getElementById('s-prenom').value = user.prenom || '';
+            if (document.getElementById('s-mail')) document.getElementById('s-mail').value = user.mail || user.email || '';
+            if (document.getElementById('s-numero')) document.getElementById('s-numero').value = user.numero || '';
+            if (document.getElementById('s-club')) document.getElementById('s-club').value = user.club || '';
+          }
+        } catch (e) {}
+      }
+    }
+
+    checkAuthScout();
     loadData();
   </script>
 </body>

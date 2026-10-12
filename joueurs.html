@@ -135,7 +135,10 @@
         <button class="nav-btn" onclick="showTab('messages')">Messages</button>
         <button class="nav-btn" onclick="showTab('profil')">Profil & Inscription</button>
       </div>
-      <a href="/recruteurs" style="color: #f5b041; text-decoration: none; font-size: 13px; font-weight: 700;">Espace Recruteur →</a>
+      <div style="display: flex; gap: 12px; align-items: center;">
+        <a href="/recruteurs" style="color: #f5b041; text-decoration: none; font-size: 13px; font-weight: 700;">Espace Recruteur →</a>
+        <a href="/connexion" id="auth-link" style="background: #1e293b; color: #fff; padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: 700; text-decoration: none;">Connexion</a>
+      </div>
     </div>
   </header>
 
@@ -188,6 +191,14 @@
             <div class="form-group">
               <label>Prénom</label>
               <input type="text" id="prenom" required placeholder="Ex: Abou">
+            </div>
+            <div class="form-group">
+              <label>Adresse E-mail</label>
+              <input type="email" id="email" required placeholder="Ex: abou.cisse@gmail.com">
+            </div>
+            <div class="form-group">
+              <label>Mot de passe</label>
+              <input type="password" id="motdepasse" required placeholder="Minimum 6 caractères">
             </div>
             <div class="form-group">
               <label>Numéro de téléphone</label>
@@ -289,6 +300,8 @@
       const player = {
         nom: document.getElementById('nom').value,
         prenom: document.getElementById('prenom').value,
+        email: document.getElementById('email').value,
+        motdepasse: document.getElementById('motdepasse').value,
         numero: document.getElementById('numero').value,
         ville: document.getElementById('ville').value,
         taille: document.getElementById('taille').value,
@@ -306,12 +319,40 @@
       });
       const data = await res.json();
       if (data.success) {
+        localStorage.setItem('futurpro_user', JSON.stringify({ role: 'joueur', user: data.player }));
         document.getElementById('p-nom').innerText = player.prenom + ' ' + player.nom;
         document.getElementById('p-meta').innerText = `${player.poste} • ${player.taille} cm • ${player.poids} kg • Pied ${player.pied}`;
-        alert('Profil Joueur enregistré avec succès sur FuturPro !');
+        alert('Compte et profil Joueur enregistrés avec succès sur FuturPro !');
       }
     }
 
+    function checkAuth() {
+      const stored = localStorage.getItem('futurpro_user');
+      if (stored) {
+        try {
+          const { user } = JSON.parse(stored);
+          if (user && user.prenom) {
+            document.getElementById('p-nom').innerText = user.prenom + ' ' + user.nom;
+            if (user.poste) {
+              document.getElementById('p-meta').innerText = `${user.poste} • ${user.taille || ''} cm • ${user.poids || ''} kg • Pied ${user.pied || ''}`;
+            }
+            if (user.photo) document.getElementById('p-photo').src = user.photo;
+            if (document.getElementById('nom')) document.getElementById('nom').value = user.nom || '';
+            if (document.getElementById('prenom')) document.getElementById('prenom').value = user.prenom || '';
+            if (document.getElementById('email')) document.getElementById('email').value = user.email || '';
+            if (document.getElementById('numero')) document.getElementById('numero').value = user.numero || '';
+            if (document.getElementById('ville')) document.getElementById('ville').value = user.ville || '';
+          }
+        } catch (e) {}
+      }
+    }
+
+    function logout() {
+      localStorage.removeItem('futurpro_user');
+      window.location.href = '/connexion';
+    }
+
+    checkAuth();
     loadData();
   </script>
 </body>

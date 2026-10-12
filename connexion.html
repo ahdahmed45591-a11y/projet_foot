@@ -3,123 +3,227 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Connexion - Footsider</title>
+  <title>Connexion - FuturPro</title>
   <link rel="shortcut icon" href="./assets/img/favicon.2cc4d4cf.ico">
-  <link rel="stylesheet" href="./style.css">
   <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      background: #090e15 radial-gradient(circle at 50% 20%, #152232 0%, #090e15 80%);
+      background: #080c10;
       color: #fff;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    }
-    .auth-container {
-      max-width: 540px;
-      margin: auto;
-      padding: 30px 20px;
-      width: 100%;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
     }
     .auth-card {
       background: #111823;
       border: 1px solid #1f2c3d;
       border-radius: 16px;
-      padding: 36px 30px;
-      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+      padding: 36px 32px;
+      width: 100%;
+      max-width: 440px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+    }
+    .logo-container {
       text-align: center;
-    }
-    .auth-card img.logo {
-      height: 32px;
-      margin-bottom: 20px;
-    }
-    .auth-card h1 {
-      font-size: 24px;
-      font-weight: 800;
-      margin-bottom: 8px;
-    }
-    .auth-card p.subtitle {
-      color: #8b99a8;
-      font-size: 14px;
-      margin-bottom: 30px;
-    }
-    .roles-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
       margin-bottom: 24px;
     }
-    .role-card {
-      background: #0c121b;
-      border: 2px solid #1a2533;
-      border-radius: 12px;
-      padding: 24px 16px;
-      text-decoration: none;
-      color: #fff;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 12px;
-      transition: all 0.2s;
+    .logo-container img {
+      height: 48px;
     }
-    .role-card:hover {
-      border-color: #02a85e;
-      transform: translateY(-3px);
-      box-shadow: 0 8px 24px rgba(2, 168, 94, 0.2);
-    }
-    .role-card.recruteur:hover {
-      border-color: #f5b041;
-      box-shadow: 0 8px 24px rgba(245, 176, 65, 0.2);
-    }
-    .role-icon {
-      font-size: 34px;
-    }
-    .role-title {
-      font-size: 16px;
+    h1 {
+      font-size: 22px;
+      text-align: center;
+      margin-bottom: 8px;
       font-weight: 800;
     }
-    .role-desc {
-      font-size: 11px;
-      color: #8b99a8;
-      line-height: 1.4;
-    }
-    .back-home {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      color: #8b99a8;
-      text-decoration: none;
+    .subtext {
+      text-align: center;
+      color: #94a3b8;
       font-size: 13px;
-      margin-bottom: 16px;
+      margin-bottom: 24px;
+    }
+    .form-group {
+      margin-bottom: 18px;
+    }
+    label {
+      display: block;
+      font-size: 12px;
+      font-weight: 700;
+      color: #cbd5e1;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    input {
+      width: 100%;
+      background: #0a0f16;
+      border: 1px solid #233246;
+      border-radius: 10px;
+      color: #fff;
+      padding: 12px 14px;
+      font-size: 14px;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+    input:focus {
+      border-color: #02a85e;
+    }
+    .btn-login {
+      width: 100%;
+      background: #02a85e;
+      color: #fff;
+      border: none;
+      padding: 13px;
+      border-radius: 10px;
+      font-weight: 800;
+      font-size: 15px;
+      cursor: pointer;
+      margin-top: 8px;
+      transition: background 0.2s;
+    }
+    .btn-login:hover {
+      background: #028e4f;
+    }
+    .error-box {
+      background: rgba(239, 68, 68, 0.15);
+      border: 1px solid #ef4444;
+      color: #fca5a5;
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-size: 13px;
+      margin-bottom: 18px;
+      display: none;
+    }
+    .quick-roles {
+      margin-top: 24px;
+      padding-top: 20px;
+      border-top: 1px solid #1e293b;
+      font-size: 12px;
+      color: #94a3b8;
+    }
+    .quick-badge {
+      display: inline-block;
+      background: #1e293b;
+      color: #cbd5e1;
+      padding: 4px 8px;
+      border-radius: 6px;
+      margin: 4px 2px;
+      cursor: pointer;
+      font-size: 11px;
+    }
+    .quick-badge:hover {
+      background: #334155;
+      color: #fff;
+    }
+    .bottom-links {
+      text-align: center;
+      margin-top: 16px;
+      font-size: 13px;
+    }
+    .bottom-links a {
+      color: #02a85e;
+      text-decoration: none;
+      font-weight: 600;
     }
   </style>
 </head>
 <body>
-  <div class="auth-container">
-    <a href="/" class="back-home">← Retour à l'accueil</a>
-    <div class="auth-card">
-      <a href="/"><img src="./assets/img/logo-futurpro.png" class="logo" alt="Footsider"></a>
-      <h1>Bienvenue sur Footsider</h1>
-      <p class="subtitle">Choisissez votre profil pour vous connecter</p>
 
-      <div class="roles-grid">
-        <a href="/joueurs" class="role-card">
-          <div class="role-icon">⚽</div>
-          <div class="role-title">JOUEUR</div>
-          <div class="role-desc">Créer mon CV, poster mes highlights et postuler aux détections</div>
-        </a>
+  <div class="auth-card">
+    <div class="logo-container">
+      <a href="/"><img src="./assets/img/logo-futurpro.png" alt="FuturPro"></a>
+    </div>
 
-        <a href="/recruteurs" class="role-card recruteur">
-          <div class="role-icon">💼</div>
-          <div class="role-title" style="color: #f5b041;">RECRUTEUR</div>
-          <div class="role-desc">Clubs, recruteurs & agents à la recherche de nouveaux talents</div>
-        </a>
+    <h1>Connexion FuturPro</h1>
+    <p class="subtext">Connectez-vous avec votre e-mail et mot de passe</p>
+
+    <div id="error-msg" class="error-box"></div>
+
+    <form onsubmit="handleLogin(event)">
+      <div class="form-group">
+        <label for="email">Adresse E-mail</label>
+        <input type="email" id="email" required placeholder="nom@exemple.com">
       </div>
 
-      <div style="font-size: 13px; color: #8b99a8;">
-        Besoin d'aide ? <a href="/" style="color: #02a85e; text-decoration: none;">Consulter la FAQ</a>
+      <div class="form-group">
+        <label for="motdepasse">Mot de passe</label>
+        <input type="password" id="motdepasse" required placeholder="••••••••">
+      </div>
+
+      <button type="submit" class="btn-login" id="btn-submit">Se connecter</button>
+    </form>
+
+    <div class="quick-roles">
+      <p style="margin-bottom: 6px; font-weight: 600;">Comptes de démonstration rapide :</p>
+      <div>
+        <span class="quick-badge" onclick="fillCreds('abou.cisse@gmail.com', '123456')">🟢 Joueur (Abou Cissé)</span>
+        <span class="quick-badge" onclick="fillCreds('b.kone@asec.ci', '123456')">🟡 Recruteur ASEC (B. Koné)</span>
+        <span class="quick-badge" onclick="fillCreds('admin@futurpro.com', 'admin123')">🔴 Admin Principal</span>
+        <span class="quick-badge" onclick="fillCreds('moderation@futurpro.com', 'sousadmin123')">🔵 Sous-Admin</span>
       </div>
     </div>
+
+    <div class="bottom-links">
+      <a href="/">← Retour à l'accueil</a>
+    </div>
   </div>
+
+  <script>
+    function fillCreds(email, pass) {
+      document.getElementById('email').value = email;
+      document.getElementById('motdepasse').value = pass;
+    }
+
+    // Préremplir si déjà connecté
+    const savedUser = localStorage.getItem('futurpro_user');
+    if (savedUser) {
+      try {
+        const u = JSON.parse(savedUser);
+        if (u.email || u.mail) document.getElementById('email').value = u.email || u.mail;
+      } catch (e) {}
+    }
+
+    async function handleLogin(e) {
+      e.preventDefault();
+      const errorBox = document.getElementById('error-msg');
+      errorBox.style.display = 'none';
+
+      const email = document.getElementById('email').value;
+      const motdepasse = document.getElementById('motdepasse').value;
+      const btn = document.getElementById('btn-submit');
+      btn.innerText = 'Connexion...';
+      btn.disabled = true;
+
+      try {
+        const res = await fetch('/api/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, motdepasse })
+        });
+        const data = await res.json();
+
+        if (res.ok && data.success) {
+          localStorage.setItem('futurpro_user', JSON.stringify({
+            role: data.role,
+            user: data.user
+          }));
+          window.location.href = data.redirect;
+        } else {
+          errorBox.innerText = data.error || 'Identifiants incorrects';
+          errorBox.style.display = 'block';
+        }
+      } catch (err) {
+        errorBox.innerText = 'Erreur lors de la connexion au serveur';
+        errorBox.style.display = 'block';
+      } finally {
+        btn.innerText = 'Se connecter';
+        btn.disabled = false;
+      }
+    }
+  </script>
 </body>
 </html>

@@ -53,6 +53,47 @@ const server = http.createServer((req, res) => {
 
     const db = readDB();
 
+    // 0. Authentification / Connexion (Email + Mot de passe)
+    if (reqPath === '/api/login' && req.method === 'POST') {
+      let body = '';
+      req.on('data', chunk => { body += chunk; });
+      req.on('end', () => {
+        try {
+          const { email, motdepasse } = JSON.parse(body);
+          const cleanEmail = (email || '').trim().toLowerCase();
+          const cleanPass = (motdepasse || '').trim();
+
+          // Vérifier dans les Joueurs
+          const player = db.players.find(p => (p.email || '').toLowerCase() === cleanEmail && (p.motdepasse || '123456') === cleanPass);
+          if (player) {
+            res.writeHead(200);
+            return res.end(JSON.stringify({ success: true, role: 'joueur', user: player, redirect: '/joueurs' }));
+          }
+
+          // Vérifier dans les Recruteurs
+          const scout = db.scouts.find(s => ((s.mail || s.email || '').toLowerCase() === cleanEmail) && (s.motdepasse || '123456') === cleanPass);
+          if (scout) {
+            res.writeHead(200);
+            return res.end(JSON.stringify({ success: true, role: 'recruteur', user: scout, redirect: '/recruteurs' }));
+          }
+
+          // Vérifier dans les Administrateurs
+          const admin = db.admins.find(a => (a.email || '').toLowerCase() === cleanEmail && (a.motdepasse || 'admin123') === cleanPass);
+          if (admin) {
+            res.writeHead(200);
+            return res.end(JSON.stringify({ success: true, role: admin.role, user: admin, redirect: '/admin' }));
+          }
+
+          res.writeHead(401);
+          return res.end(JSON.stringify({ error: 'Email ou mot de passe incorrect' }));
+        } catch (e) {
+          res.writeHead(400);
+          return res.end(JSON.stringify({ error: 'Requête invalide' }));
+        }
+      });
+      return;
+    }
+
     // 1. Inscription Joueur
     if (reqPath === '/api/joueur/register' && req.method === 'POST') {
       let body = '';

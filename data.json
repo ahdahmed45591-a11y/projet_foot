@@ -5,6 +5,7 @@
       "nom": "Cissé",
       "prenom": "Abou",
       "email": "abou.cisse@gmail.com",
+      "motdepasse": "123456",
       "numero": "+225 07 88 99 11",
       "taille": 184,
       "poids": 78,
@@ -22,6 +23,7 @@
       "nom": "Kouassi",
       "prenom": "Jean-Marc",
       "email": "jm.kouassi@gmail.com",
+      "motdepasse": "123456",
       "numero": "+225 05 11 22 33",
       "taille": 178,
       "poids": 72,
@@ -39,6 +41,7 @@
       "nom": "Traoré",
       "prenom": "Ibrahim",
       "email": "ib.traore@gmail.com",
+      "motdepasse": "123456",
       "numero": "+225 01 44 55 66",
       "taille": 188,
       "poids": 83,
@@ -59,6 +62,7 @@
       "prenom": "Bakari",
       "numero": "+225 07 12 34 56",
       "mail": "b.kone@asec.ci",
+      "motdepasse": "123456",
       "club": "ASEC Mimosas (Sol Béni)",
       "savedPlayers": ["p_1", "p_3"],
       "status": "verifie"
@@ -69,6 +73,7 @@
       "prenom": "Lassina",
       "numero": "+225 05 98 76 54",
       "mail": "recrutement@africasports.ci",
+      "motdepasse": "123456",
       "club": "Africa Sports",
       "savedPlayers": ["p_1"],
       "status": "verifie"
@@ -81,6 +86,7 @@
       "nom": "Cissé",
       "prenom": "Ahmed",
       "email": "admin@futurpro.com",
+      "motdepasse": "admin123",
       "permissions": ["all"]
     },
     {
@@ -89,6 +95,7 @@
       "nom": "Coulibaly",
       "prenom": "Drissa",
       "email": "moderation@futurpro.com",
+      "motdepasse": "sousadmin123",
       "permissions": ["moderation_joueurs", "moderation_recruteurs", "detections"]
     }
   ],

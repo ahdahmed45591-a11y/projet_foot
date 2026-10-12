@@ -104,6 +104,7 @@
         <option value="sous_admin">Sous-Admin (Modérateur)</option>
       </select>
       <a href="/" style="color: #94a3b8; text-decoration: none; font-size: 13px;">Retour au site</a>
+      <a href="#" onclick="logoutAdmin(event)" style="background: #ef4444; color: #fff; padding: 6px 12px; border-radius: 8px; text-decoration: none; font-size: 12px; font-weight: 700;">Déconnexion</a>
     </div>
   </header>
 
@@ -268,6 +269,29 @@
       }
     }
 
+    function logoutAdmin(e) {
+      if (e) e.preventDefault();
+      localStorage.removeItem('futurpro_user');
+      window.location.href = '/connexion';
+    }
+
+    function checkAdminAuth() {
+      const stored = localStorage.getItem('futurpro_user');
+      if (stored) {
+        try {
+          const { role, user } = JSON.parse(stored);
+          if (role === 'sous_admin') {
+            document.getElementById('select-admin-role').value = 'sous_admin';
+            switchRole('sous_admin');
+          } else if (role === 'admin') {
+            document.getElementById('select-admin-role').value = 'admin';
+            switchRole('admin');
+          }
+        } catch (e) {}
+      }
+    }
+
+    checkAdminAuth();
     loadAdminData();
   </script>
 </body>
