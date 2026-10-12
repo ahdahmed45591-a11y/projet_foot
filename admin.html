@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Administration FuturPro - Gestion & Modération</title>
+  <link rel="shortcut icon" href="./assets/img/favicon.2cc4d4cf.ico">
+  <link rel="stylesheet" href="./style.css">
+  <style>
+    body {
+      background: #080c10;
+      color: #fff;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    .admin-nav {
+      background: #0e1724;
+      border-bottom: 2px solid #ef4444;
+      padding: 14px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .admin-badge {
+      background: #ef4444;
+      color: #fff;
+      font-weight: 800;
+      font-size: 11px;
+      padding: 4px 10px;
+      border-radius: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .main-wrap {
+      max-width: 1200px;
+      margin: 30px auto;
+      padding: 0 20px;
+    }
+    .grid-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .stat-card {
+      background: #111823;
+      border: 1px solid #1f2c3d;
+      padding: 20px;
+      border-radius: 12px;
+      text-align: center;
+    }
+    .stat-val {
+      font-size: 28px;
+      font-weight: 900;
+      color: #02a85e;
+      margin-top: 4px;
+    }
+    .table-card {
+      background: #111823;
+      border: 1px solid #1f2c3d;
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 24px;
+      overflow-x: auto;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+    th, td {
+      padding: 12px 14px;
+      text-align: left;
+      border-bottom: 1px solid #1f2c3d;
+    }
+    th {
+      color: #94a3b8;
+      text-transform: uppercase;
+      font-size: 11px;
+    }
+    .btn-action {
+      padding: 5px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+    }
+    .btn-del { background: #ef4444; color: #fff; }
+    .btn-status { background: #3b82f6; color: #fff; }
+  </style>
+</head>
+<body>
+
+  <header class="admin-nav">
+    <div style="display: flex; align-items: center; gap: 14px;">
+      <img src="./assets/img/logo-futurpro.png" style="height: 34px;">
+      <span class="admin-badge" id="role-tag">PANEL ADMIN (Cissé Ahmed)</span>
+    </div>
+    <div style="display: flex; gap: 12px; align-items: center;">
+      <select id="select-admin-role" onchange="switchRole(this.value)" style="background: #1e293b; color: #fff; border: 1px solid #334155; padding: 6px 12px; border-radius: 8px; font-weight: 700;">
+        <option value="admin">Administrateur Principal</option>
+        <option value="sous_admin">Sous-Admin (Modérateur)</option>
+      </select>
+      <a href="/" style="color: #94a3b8; text-decoration: none; font-size: 13px;">Retour au site</a>
+    </div>
+  </header>
+
+  <main class="main-wrap">
+    
+    <div class="grid-stats">
+      <div class="stat-card">
+        <div style="color: #94a3b8; font-size: 12px; text-transform: uppercase; font-weight: 700;">Joueurs Inscrits</div>
+        <div class="stat-val" id="cnt-players">0</div>
+      </div>
+      <div class="stat-card">
+        <div style="color: #94a3b8; font-size: 12px; text-transform: uppercase; font-weight: 700;">Recruteurs Actifs</div>
+        <div class="stat-val" id="cnt-scouts" style="color: #f5b041;">0</div>
+      </div>
+      <div class="stat-card">
+        <div style="color: #94a3b8; font-size: 12px; text-transform: uppercase; font-weight: 700;">Détections Ouvertes</div>
+        <div class="stat-val" id="cnt-detections" style="color: #38bdf8;">0</div>
+      </div>
+      <div class="stat-card">
+        <div style="color: #94a3b8; font-size: 12px; text-transform: uppercase; font-weight: 700;">Rôles Administratifs</div>
+        <div class="stat-val" style="color: #ef4444;">2</div>
+      </div>
+    </div>
+
+    <!-- Modération des Joueurs -->
+    <div class="table-card">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+        <h3 style="margin: 0;">Gestion des Joueurs</h3>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Joueur</th>
+            <th>Poste</th>
+            <th>Ville</th>
+            <th>Taille / Poids</th>
+            <th>Contact</th>
+            <th>Statut</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="tbody-players"></tbody>
+      </table>
+    </div>
+
+    <!-- Modération des Détections -->
+    <div class="table-card">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+        <h3 style="margin: 0;">Détections en Ligne</h3>
+        <button class="btn-action" style="background: #02a85e; color: #fff;" onclick="addNewDetection()">+ Ajouter une détection</button>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Titre</th>
+            <th>Club</th>
+            <th>Lieu & Date</th>
+            <th>Poste</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="tbody-detections"></tbody>
+      </table>
+    </div>
+
+  </main>
+
+  <script>
+    let currentAdminRole = 'admin';
+
+    function switchRole(role) {
+      currentAdminRole = role;
+      document.getElementById('role-tag').innerText = role === 'admin' ? 'PANEL ADMIN (Cissé Ahmed)' : 'PANEL SOUS-ADMIN (Coulibaly Drissa)';
+      document.getElementById('role-tag').style.background = role === 'admin' ? '#ef4444' : '#f5b041';
+    }
+
+    async function loadAdminData() {
+      const res = await fetch('/api/data');
+      const db = await res.json();
+
+      document.getElementById('cnt-players').innerText = db.players.length;
+      document.getElementById('cnt-scouts').innerText = db.scouts.length;
+      document.getElementById('cnt-detections').innerText = db.detections.length;
+
+      // Table Joueurs
+      document.getElementById('tbody-players').innerHTML = db.players.map(p => `
+        <tr>
+          <td><strong>${p.prenom} ${p.nom}</strong></td>
+          <td>${p.poste}</td>
+          <td>${p.ville}</td>
+          <td>${p.taille} cm / ${p.poids} kg</td>
+          <td>${p.numero}</td>
+          <td><span style="color: ${p.status === 'actif' ? '#02a85e' : '#ef4444'}; font-weight: 700;">${p.status}</span></td>
+          <td>
+            <button class="btn-action btn-status" onclick="toggleStatus('${p.id}')">Basculer</button>
+            ${currentAdminRole === 'admin' ? `<button class="btn-action btn-del" onclick="deletePlayer('${p.id}')">Supprimer</button>` : ''}
+          </td>
+        </tr>
+      `).join('');
+
+      // Table Détections
+      document.getElementById('tbody-detections').innerHTML = db.detections.map(d => `
+        <tr>
+          <td><strong>${d.titre}</strong></td>
+          <td>${d.club}</td>
+          <td>${d.lieu} (${d.date})</td>
+          <td>${d.poste}</td>
+          <td>
+            <button class="btn-action btn-del" onclick="deleteDetection('${d.id}')">Supprimer</button>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    async function toggleStatus(id) {
+      await fetch('/api/admin/action', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ action: 'toggle_player_status', targetId: id })
+      });
+      loadAdminData();
+    }
+
+    async function deletePlayer(id) {
+      if (confirm('Confirmer la suppression de ce joueur ?')) {
+        await fetch('/api/admin/action', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ action: 'delete_player', targetId: id })
+        });
+        loadAdminData();
+      }
+    }
+
+    async function deleteDetection(id) {
+      if (confirm('Confirmer la suppression de cette détection ?')) {
+        await fetch('/api/admin/action', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ action: 'delete_detection', targetId: id })
+        });
+        loadAdminData();
+      }
+    }
+
+    async function addNewDetection() {
+      const titre = prompt('Titre de la détection :');
+      const club = prompt('Nom du club :');
+      const date = prompt('Date de la détection :');
+      const lieu = prompt('Lieu (Ex: Abidjan) :');
+      const poste = prompt('Poste recherché :');
+      if (titre && club) {
+        await fetch('/api/admin/action', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            action: 'add_detection',
+            payload: { titre, club, date, lieu, poste, statut: 'ouverte' }
+          })
+        });
+        loadAdminData();
+      }
+    }
+
+    loadAdminData();
+  </script>
+</body>
+</html>

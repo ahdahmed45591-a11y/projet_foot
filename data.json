@@ -1,0 +1,145 @@
+{
+  "players": [
+    {
+      "id": "p_1",
+      "nom": "Cissé",
+      "prenom": "Abou",
+      "email": "abou.cisse@gmail.com",
+      "numero": "+225 07 88 99 11",
+      "taille": 184,
+      "poids": 78,
+      "poste": "Attaquant (BU)",
+      "pied": "Droit",
+      "ville": "Abidjan",
+      "photo": "./assets/img/Joueur-Footsider-Detection.jpg",
+      "video": "./assets/video/joueurfinal.mp4",
+      "clubActuel": "Formation Libre",
+      "status": "actif",
+      "dateInscription": "2026-10-10"
+    },
+    {
+      "id": "p_2",
+      "nom": "Kouassi",
+      "prenom": "Jean-Marc",
+      "email": "jm.kouassi@gmail.com",
+      "numero": "+225 05 11 22 33",
+      "taille": 178,
+      "poids": 72,
+      "poste": "Milieu Défensif (MDC)",
+      "pied": "Gauche",
+      "ville": "Bouaké",
+      "photo": "./assets/img/L1060490-1024x576.jpg",
+      "video": "./assets/video/whatsapp-video.mp4",
+      "clubActuel": "Espoirs Bouaké",
+      "status": "actif",
+      "dateInscription": "2026-10-11"
+    },
+    {
+      "id": "p_3",
+      "nom": "Traoré",
+      "prenom": "Ibrahim",
+      "email": "ib.traore@gmail.com",
+      "numero": "+225 01 44 55 66",
+      "taille": 188,
+      "poids": 83,
+      "poste": "Défenseur Central (DC)",
+      "pied": "Droit",
+      "ville": "San Pédro",
+      "photo": "./assets/img/Joueur_statistiques_footsider_v4.png",
+      "video": "./assets/video/lancement.mp4",
+      "clubActuel": "Académie San Pédro",
+      "status": "actif",
+      "dateInscription": "2026-10-12"
+    }
+  ],
+  "scouts": [
+    {
+      "id": "s_1",
+      "nom": "Koné",
+      "prenom": "Bakari",
+      "numero": "+225 07 12 34 56",
+      "mail": "b.kone@asec.ci",
+      "club": "ASEC Mimosas (Sol Béni)",
+      "savedPlayers": ["p_1", "p_3"],
+      "status": "verifie"
+    },
+    {
+      "id": "s_2",
+      "nom": "Diomandé",
+      "prenom": "Lassina",
+      "numero": "+225 05 98 76 54",
+      "mail": "recrutement@africasports.ci",
+      "club": "Africa Sports",
+      "savedPlayers": ["p_1"],
+      "status": "verifie"
+    }
+  ],
+  "admins": [
+    {
+      "id": "adm_1",
+      "role": "admin",
+      "nom": "Cissé",
+      "prenom": "Ahmed",
+      "email": "admin@futurpro.com",
+      "permissions": ["all"]
+    },
+    {
+      "id": "adm_2",
+      "role": "sous_admin",
+      "nom": "Coulibaly",
+      "prenom": "Drissa",
+      "email": "moderation@futurpro.com",
+      "permissions": ["moderation_joueurs", "moderation_recruteurs", "detections"]
+    }
+  ],
+  "detections": [
+    {
+      "id": "det_1",
+      "titre": "Détection Élite U19 / Espoirs",
+      "club": "ASEC Mimosas (Sol Béni)",
+      "logo": "./assets/img/logo-futurpro.png",
+      "date": "25 Octobre 2026",
+      "lieu": "Abidjan, Sol Béni",
+      "poste": "Attaquant / Ailier",
+      "statut": "ouverte"
+    },
+    {
+      "id": "det_2",
+      "titre": "Grand Recrutement Défenseurs & Milieux",
+      "club": "Africa Sports",
+      "logo": "./assets/img/logo-futurpro.png",
+      "date": "02 Novembre 2026",
+      "lieu": "Abidjan, Stade Champroux",
+      "poste": "Défenseur Central / MDC",
+      "statut": "ouverte"
+    }
+  ],
+  "posts": [
+    {
+      "id": "post_1",
+      "auteurNom": "ASEC Mimosas",
+      "auteurRole": "Club Officiel",
+      "texte": "La cellule de recrutement lance sa session nationale. Déposez vos vidéos et fiches techniques sur FuturPro pour être convoqués.",
+      "date": "Il y a 2h",
+      "likes": 142
+    },
+    {
+      "id": "post_2",
+      "auteurNom": "Cissé Ahmed",
+      "auteurRole": "Fondateur",
+      "texte": "Bienvenue à tous les jeunes footballeurs ivoiriens sur FuturPro ! Exprimez votre potentiel au plus haut niveau.",
+      "date": "Il y a 5h",
+      "likes": 289
+    }
+  ],
+  "messages": [
+    {
+      "id": "m_1",
+      "from": "s_1",
+      "to": "p_1",
+      "senderName": "ASEC Mimosas (Bakari Koné)",
+      "texte": "Bonjour Abou, nous avons vu votre profil et votre vidéo. Êtes-vous disponible le 25 Octobre pour la session ?",
+      "date": "Aujourd'hui à 11:30"
+    }
+  ]
+}
